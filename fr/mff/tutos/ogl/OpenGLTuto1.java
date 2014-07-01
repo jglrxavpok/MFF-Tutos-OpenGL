@@ -2,6 +2,7 @@ package fr.mff.tutos.ogl;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 
 public class OpenGLTuto1
 {
@@ -11,6 +12,10 @@ public class OpenGLTuto1
 		try
 		{
 			Display.create();
+			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glLoadIdentity();
+			GL11.glOrtho(0, 800, 0, 600, 1, -1);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		}
 		catch(LWJGLException e)
 		{
