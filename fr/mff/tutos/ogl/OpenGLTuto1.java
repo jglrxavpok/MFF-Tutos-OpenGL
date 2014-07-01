@@ -34,7 +34,12 @@ public class OpenGLTuto1
 		glClear(GL_COLOR_BUFFER_BIT);
 		ticks++;
 		glColor3f(1, 0, 0);
-		glRecti(ticks, 0, ticks+100, 100);
+		glBegin(GL_QUADS);
+			glVertex2d(ticks, 0);
+			glVertex2d(ticks+100, 0);
+			glVertex2d(ticks+100, 100);
+			glVertex2d(ticks, 100);
+		glEnd();
 		Display.update();
 		Display.sync(60);
 	}
