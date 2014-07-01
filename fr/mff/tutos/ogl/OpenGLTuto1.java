@@ -1,5 +1,7 @@
 package fr.mff.tutos.ogl;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -27,6 +29,7 @@ public class OpenGLTuto1
 
 	private static void tick()
 	{
+		glRecti(0, 0, 100, 100);
 		Display.sync(60);
 		Display.update();
 	}
