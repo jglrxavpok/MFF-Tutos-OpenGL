@@ -9,6 +9,8 @@ import org.lwjgl.opengl.GL11;
 public class OpenGLTuto1
 {
 
+	private static int ticks;
+
 	public static void main(String[] args)
 	{
 		try
@@ -29,9 +31,10 @@ public class OpenGLTuto1
 
 	private static void tick()
 	{
-		glRecti(0, 0, 100, 100);
-		Display.sync(60);
+		ticks++;
+		glRecti(ticks, 0, ticks+100, 100);
 		Display.update();
+		Display.sync(60);
 	}
 
 }
