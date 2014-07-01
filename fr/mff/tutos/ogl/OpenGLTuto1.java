@@ -30,11 +30,13 @@ public class OpenGLTuto1
 	private static void tick()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		glColor3f(1, 0, 0);
 		glTranslated(1, 0, 0);
 		glBegin(GL_TRIANGLES);
+			glColor3f(0, 0, 1);
 			glVertex2d(0, 100);
+			glColor3f(0, 1, 0);
 			glVertex2d(50, 100+100);
+			glColor3f(1, 0, 0);
 			glVertex2d(100, 100);
 		glEnd();
 		Display.update();
