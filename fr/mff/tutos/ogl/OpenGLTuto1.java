@@ -9,8 +9,6 @@ import org.lwjgl.opengl.GL11;
 public class OpenGLTuto1
 {
 
-	private static int ticks;
-
 	public static void main(String[] args)
 	{
 		try
@@ -32,12 +30,12 @@ public class OpenGLTuto1
 	private static void tick()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		ticks++;
 		glColor3f(1, 0, 0);
+		glTranslated(1, 0, 0);
 		glBegin(GL_TRIANGLES);
-			glVertex2d(ticks, 100);
-			glVertex2d(ticks+50, 100+100);
-			glVertex2d(ticks+100, 100);
+			glVertex2d(0, 100);
+			glVertex2d(50, 100+100);
+			glVertex2d(100, 100);
 		glEnd();
 		Display.update();
 		Display.sync(60);
