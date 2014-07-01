@@ -35,10 +35,10 @@ public class OpenGLTuto1
 		ticks++;
 		glColor3f(1, 0, 0);
 		glBegin(GL_QUADS);
-			glVertex2d(ticks, 0);
-			glVertex2d(ticks+100, 0);
-			glVertex2d(ticks+100, 100);
-			glVertex2d(ticks, 100);
+			glVertex2d(ticks, 50+100);
+			glVertex2d(ticks+50, 100+100);
+			glVertex2d(ticks+100, 50+100);
+			glVertex2d(ticks+50, 0+100);
 		glEnd();
 		Display.update();
 		Display.sync(60);
