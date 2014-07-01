@@ -31,6 +31,7 @@ public class OpenGLTuto1
 
 	private static void tick()
 	{
+		glClear(GL_COLOR_BUFFER_BIT);
 		ticks++;
 		glRecti(ticks, 0, ticks+100, 100);
 		Display.update();
