@@ -33,6 +33,7 @@ public class OpenGLTuto1
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		ticks++;
+		glColor3f(1, 0, 0);
 		glRecti(ticks, 0, ticks+100, 100);
 		Display.update();
 		Display.sync(60);
