@@ -30,6 +30,7 @@ public class OpenGLTuto1
 	private static void tick()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
+		glPushMatrix();
 		glScaled(2, 2, 2);
 		glTranslated(1, 0, 0);
 		glBegin(GL_TRIANGLES);
@@ -40,6 +41,7 @@ public class OpenGLTuto1
 			glColor3f(1, 0, 0);
 			glVertex2d(100, 100);
 		glEnd();
+		glPopMatrix();
 		Display.update();
 		Display.sync(60);
 	}
