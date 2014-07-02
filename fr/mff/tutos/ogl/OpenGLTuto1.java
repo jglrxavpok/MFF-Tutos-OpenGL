@@ -30,6 +30,7 @@ public class OpenGLTuto1
 	private static void tick()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
+		glScaled(2, 2, 2);
 		glTranslated(1, 0, 0);
 		glBegin(GL_TRIANGLES);
 			glColor3f(0, 0, 1);
