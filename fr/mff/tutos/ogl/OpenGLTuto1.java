@@ -9,6 +9,8 @@ import org.lwjgl.opengl.GL11;
 public class OpenGLTuto1
 {
 
+	private static int angle;
+
 	public static void main(String[] args)
 	{
 		try
@@ -32,7 +34,13 @@ public class OpenGLTuto1
 		glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
 		glScaled(2, 2, 2);
-		glTranslated(1, 0, 0);
+		glTranslated(50, 0, 0);
+		
+		glTranslated(50, 150, 0);
+		glRotated(angle++, 0, 0, 1);
+		glTranslated(-50, -150, 0);
+
+		
 		glBegin(GL_TRIANGLES);
 			glColor3f(0, 0, 1);
 			glVertex2d(0, 100);
