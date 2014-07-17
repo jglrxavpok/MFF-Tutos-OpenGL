@@ -108,28 +108,4 @@ public class OpenGLTuto1
 		Display.update();
 		Display.sync(60);
 	}
-
-	public static String read(String fileName)
-	{
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
-		try
-		{
-			InputStream in = OpenGLTuto1.class.getResourceAsStream(fileName);
-			byte[] buffer = new byte[65565];
-			int i;
-			while((i = in.read(buffer, 0, buffer.length)) != -1)
-			{
-				out.write(buffer, 0, i);
-			}
-			out.flush();
-			out.close();
-			return new String(out.toByteArray(), "UTF-8");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
