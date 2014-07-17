@@ -55,6 +55,11 @@ public class Shader
         glAttachShader(programID, shader); // On attache le code compilé à notre programme
     }
 	
+	public void bind()
+	{
+		glUseProgram(programID);
+	}
+	
 	public static String read(String fileName)
 	{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
