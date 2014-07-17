@@ -16,54 +16,54 @@ public class Shader
 	{
 		String vertexSource = read(vertexShader);
 		String fragmentSource = read(fragmentShader);
-		
+
 		this.programID = GL20.glCreateProgram(); // On crée le pointeur
-		
-		addSource(vertexSource, GL_VERTEX_SHADER); // On ajoute le code source du vertex shader à notre programme 
+
+		addSource(vertexSource, GL_VERTEX_SHADER); // On ajoute le code source du vertex shader à notre programme
 		addSource(fragmentSource, GL_FRAGMENT_SHADER); // On ajoute le code source du fragment shader à notre programme
-		
-		 glLinkProgram(programID); // On lie toutes les données ensemble
 
-        if(glGetProgrami(programID, GL_LINK_STATUS) == 0) // On vérifie que tout est bien lié
-        {
-            System.err.println(glGetProgramInfoLog(programID, 1024));
-            return;
-        }
+		glLinkProgram(programID); // On lie toutes les données ensemble
 
-        glValidateProgram(programID); // On valide le programme
+		if(glGetProgrami(programID, GL_LINK_STATUS) == 0) // On vérifie que tout est bien lié
+		{
+			System.err.println(glGetProgramInfoLog(programID, 1024));
+			return;
+		}
 
-        if(glGetProgrami(programID, GL_VALIDATE_STATUS) == 0) // On vérifie que la validation n'a pas échouée
-        {
-            System.err.println(glGetProgramInfoLog(programID, 1024));
-            return;
-        }
+		glValidateProgram(programID); // On valide le programme
+
+		if(glGetProgrami(programID, GL_VALIDATE_STATUS) == 0) // On vérifie que la validation n'a pas échouée
+		{
+			System.err.println(glGetProgramInfoLog(programID, 1024));
+			return;
+		}
 	}
-	
+
 	private void addSource(String source, int type)
-    {
-        int shader = glCreateShader(type); // On crée la plage mémoire pour le shader
+	{
+		int shader = glCreateShader(type); // On crée la plage mémoire pour le shader
 
-        glShaderSource(shader, source); // On attache la source
-        glCompileShader(shader); // On compile le shader
+		glShaderSource(shader, source); // On attache la source
+		glCompileShader(shader); // On compile le shader
 
-        if(glGetShaderi(shader, GL_COMPILE_STATUS) == 0) // On vérifie qu'il n'y a pas d'erreurs
-        {
-            System.err.println(glGetShaderInfoLog(shader, 1024));
-            return;
-        }
+		if(glGetShaderi(shader, GL_COMPILE_STATUS) == 0) // On vérifie qu'il n'y a pas d'erreurs
+		{
+			System.err.println(glGetShaderInfoLog(shader, 1024));
+			return;
+		}
 
-        glAttachShader(programID, shader); // On attache le code compilé à notre programme
-    }
-	
+		glAttachShader(programID, shader); // On attache le code compilé à notre programme
+	}
+
 	public void bind()
 	{
 		glUseProgram(programID);
 	}
-	
+
 	public static String read(String fileName)
 	{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
+
 		try
 		{
 			InputStream in = OpenGLTuto1.class.getResourceAsStream(fileName);
