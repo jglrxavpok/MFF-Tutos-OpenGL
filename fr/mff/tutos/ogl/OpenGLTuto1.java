@@ -2,10 +2,11 @@ package fr.mff.tutos.ogl;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.FloatBuffer;
 
 import javax.imageio.ImageIO;
@@ -14,12 +15,10 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public class OpenGLTuto1
 {
 
-	private static int angle;
 	private static int textureID;
 
 	public static void main(String[] args)
@@ -47,9 +46,9 @@ public class OpenGLTuto1
 	private static void loadTexture()
 	{
 		textureID = glGenTextures();
+		glBindTexture(GL_TEXTURE_2D, textureID);
 		try
 		{
-			glBindTexture(GL_TEXTURE_2D, textureID);
 			BufferedImage img = ImageIO.read(OpenGLTuto1.class.getResourceAsStream("/OpenGL_Logo.png"));
 			int[] pixels = img.getRGB(0, 0, img.getWidth(), img.getHeight(), null, 0, img.getWidth());
 			FloatBuffer pixelsBuffer = BufferUtils.createByteBuffer(pixels.length * 4 * 4).asFloatBuffer();
@@ -63,30 +62,17 @@ public class OpenGLTuto1
 					float g = ((pixel >> 8) & 0xFF)/255f;
 					float b = ((pixel >> 0) & 0xFF)/255f;
     				
-					if(a == 0.f)
-					{
-						pixelsBuffer.put(0);
-    					pixelsBuffer.put(0);
-    					pixelsBuffer.put(0);
-    					pixelsBuffer.put(0);
-					}
-					else
-					{
-    					pixelsBuffer.put(r);
-    					pixelsBuffer.put(g);
-    					pixelsBuffer.put(b);
-    					pixelsBuffer.put(a);
-					}
+					pixelsBuffer.put( r);
+					pixelsBuffer.put(g);
+					pixelsBuffer.put(b);
+					pixelsBuffer.put(a);
 				}
 			}
 			
 			pixelsBuffer.flip();
 			
-			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
-			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
-			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
-			GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
+			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 			
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_FLOAT, pixelsBuffer);
 			
@@ -99,7 +85,6 @@ public class OpenGLTuto1
 
 	private static void tick()
 	{
-		glClearColor(1, 0,0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glPushMatrix();
@@ -124,4 +109,27 @@ public class OpenGLTuto1
 		Display.sync(60);
 	}
 
+	public static String read(String fileName)
+	{
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		try
+		{
+			InputStream in = OpenGLTuto1.class.getResourceAsStream(fileName);
+			byte[] buffer = new byte[65565];
+			int i;
+			while((i = in.read(buffer, 0, buffer.length)) != -1)
+			{
+				out.write(buffer, 0, i);
+			}
+			out.flush();
+			out.close();
+			return new String(out.toByteArray(), "UTF-8");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
