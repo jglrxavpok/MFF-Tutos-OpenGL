@@ -20,6 +20,7 @@ public class OpenGLTuto1
 {
 
 	private static int textureID;
+	private static Shader shader;
 
 	public static void main(String[] args)
 	{
@@ -34,6 +35,8 @@ public class OpenGLTuto1
 			glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glEnable(GL_TEXTURE_2D);
 			loadTexture();
+			
+			shader = new Shader("/basic.vs", "/basic.fs");
 			while(!Display.isCloseRequested())
 				tick();
 		}
@@ -86,6 +89,7 @@ public class OpenGLTuto1
 	private static void tick()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
+		shader.bind();
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glPushMatrix();
 		glTranslated(50, 50, 0);
